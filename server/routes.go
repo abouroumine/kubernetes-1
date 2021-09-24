@@ -14,6 +14,10 @@ func (s *Server) NewRouter() {
 	s.S.Use(gin.Logger())
 	s.S.Use(gin.Recovery())
 
+	health := new(ctrl.HealthController)
+
+	s.S.GET("/health", health.Status)
+
 	hello := new(ctrl.HelloController)
 	s.S.GET("/hello", hello.Hello)
 	s.S.POST("/word", hello.ReceiveWorld)
